@@ -21,9 +21,7 @@ class HuntingEnv(gym.Env):
         self.observation_space = spaces.Dict(
             {
                 "agent": spaces.Box(0, size - 1, shape=(2,), dtype=int),
-                "axe position":  spaces.Box(0, size - 1, shape=(2,), dtype=int),
-                "easy target": spaces.Box(0, size - 1, shape=(2,), dtype=int),
-                "hard target": spaces.Box(0, size - 1, shape=(2,), dtype=int)
+                "axe position":  spaces.Box(0, size - 1, shape=(2,), dtype=int)
             }
         )
         # Initialize Pygame
@@ -42,8 +40,6 @@ class HuntingEnv(gym.Env):
     
     def _get_obs(self):
             return {"agent": np.array(self.current_pos), 
-                    "easy target": np.array(self.easy_goal),
-                    "hard target":  np.array(self.hard_goal),
                     "axe position": np.array(self.axe) }
 
     def reset(self,  seed=None, options=None):
@@ -118,6 +114,7 @@ class HuntingEnv(gym.Env):
         self.hard_goal = np.clip(self.hard_goal + direction, 0, self.size - 1)
 
         observation = self._get_obs()
+    
 
         info = dict()
         self.reward= self.reward - 1
