@@ -107,7 +107,7 @@ class HuntingEnv(gym.Env):
                 self.reward= self.reward - 10   
                 print("Hunt failed")
 
-        terminated = np.array_equal(self.hard_goal, self.current_pos) or np.array_equal(self.easy_goal, self.current_pos) and action == 5
+        terminated = np.array_equal(self.hard_goal, self.current_pos) and action == 5
 
         #Prey moves randomly in the grid
         easy, hard=self.deer_step(self.current_pos, self.easy_goal, self.hard_goal)
@@ -120,7 +120,7 @@ class HuntingEnv(gym.Env):
         observation = self._get_obs()
 
         info = dict()
-        self.reward= self.reward - 1
+        #self.reward= self.reward - 5
         return observation, self.reward, terminated, False, info
     
     def deer_step(self, current, easy, hard):
